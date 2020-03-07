@@ -1,4 +1,4 @@
-// Package pgservicefile is a parser PostgreSQL service files (e.g. .pg_service.conf).
+// Package pgservicefile is a parser for PostgreSQL service files (e.g. .pg_service.conf).
 package pgservicefile
 
 import (
