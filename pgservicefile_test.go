@@ -51,3 +51,11 @@ application_name = has space
 	assert.Equal(t, "defuser", def.Settings["user"])
 	assert.Equal(t, "has space", def.Settings["application_name"])
 }
+
+func TestParseServicefileWithInvalidFile(t *testing.T) {
+	buf := bytes.NewBufferString("Invalid syntax\n")
+
+	servicefile, err := pgservicefile.ParseServicefile(buf)
+	assert.Error(t, err)
+	assert.Nil(t, servicefile)
+}
