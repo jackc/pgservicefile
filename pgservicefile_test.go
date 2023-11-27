@@ -23,6 +23,7 @@ host = def.example.com
 dbname = defdb
 user = defuser
 application_name = has space
+password=abc=12@
 `)
 
 	servicefile, err := pgservicefile.ParseServicefile(buf)
@@ -53,9 +54,19 @@ application_name = has space
 }
 
 func TestParseServicefileWithInvalidFile(t *testing.T) {
-	buf := bytes.NewBufferString("Invalid syntax\n")
+	t.Run("invalid syntax", func(t *testing.T) {
+		buf := bytes.NewBufferString("Invalid syntax\n")
 
-	servicefile, err := pgservicefile.ParseServicefile(buf)
-	assert.Error(t, err)
-	assert.Nil(t, servicefile)
+		servicefile, err := pgservicefile.ParseServicefile(buf)
+		assert.Error(t, err)
+		assert.Nil(t, servicefile)
+	})
+
+	t.Run("missing service name", func(t *testing.T) {
+		buf := bytes.NewBufferString("username=usr1\n")
+
+		servicefile, err := pgservicefile.ParseServicefile(buf)
+		assert.Error(t, err)
+		assert.Nil(t, servicefile)
+	})
 }
