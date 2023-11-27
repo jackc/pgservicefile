@@ -23,7 +23,7 @@ host = def.example.com
 dbname = defdb
 user = defuser
 application_name = has space
-password=abc=12@
+password=has=symbol
 `)
 
 	servicefile, err := pgservicefile.ParseServicefile(buf)
