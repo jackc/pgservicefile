@@ -58,6 +58,10 @@ func ParseServicefile(r io.Reader) (*Servicefile, error) {
 			service = &Service{Name: line[1 : len(line)-1], Settings: make(map[string]string)}
 			servicefile.Services = append(servicefile.Services, service)
 		} else {
+			if service == nil {
+				return nil, errors.New("missing service")
+			}
+
 			parts := strings.SplitN(line, "=", 2)
 			if len(parts) != 2 {
 				return nil, fmt.Errorf("unable to parse line %d", lineNum)
