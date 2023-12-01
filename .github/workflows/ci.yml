@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     name: Test
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out code into the Go module directory
