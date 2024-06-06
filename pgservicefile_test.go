@@ -59,3 +59,12 @@ func TestParseServicefileWithInvalidFile(t *testing.T) {
 	assert.Error(t, err)
 	assert.Nil(t, servicefile)
 }
+
+// https://github.com/jackc/pgservicefile/issues/5
+func TestParseServicefileWithMissedServiceSection(t *testing.T) {
+	buf := bytes.NewBufferString("a = b\n")
+
+	servicefile, err := pgservicefile.ParseServicefile(buf)
+	assert.Error(t, err)
+	assert.Nil(t, servicefile)
+}
